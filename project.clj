@@ -6,6 +6,7 @@
   :dependencies [
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.namespace "0.2.11"]
+                 [digest "1.4.5"]
                  ]
   :main ^:skip-aot advent-of-code.core
   :target-path "target/%s"
