@@ -2,6 +2,7 @@
   (:gen-class)
   (:require [advent-of-code.2015.01 :as P01])
   (:require [advent-of-code.2015.02 :as P02])
+  (:require [advent-of-code.2015.03 :as P03])
   )
 
 (defn solve [day problemNum]
@@ -13,6 +14,8 @@
       12 (P01/solve2)
       21 (P02/solve1)
       22 (P02/solve2)
+      31 (P03/solve1)
+      32 (P03/solve2)
       )
     )
   )
