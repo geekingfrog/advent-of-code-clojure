@@ -4,6 +4,7 @@
   (:require [advent-of-code.2015.02 :as P02])
   (:require [advent-of-code.2015.03 :as P03])
   (:require [advent-of-code.2015.04 :as P04])
+  (:require [advent-of-code.2015.05 :as P05])
   )
 
 (defn solve [day problemNum]
@@ -19,6 +20,8 @@
       32 (P03/solve2)
       41 (P04/solve1)
       42 (P04/solve2)
+      51 (P05/solve1)
+      52 (P05/solve2)
       )
     )
   )
