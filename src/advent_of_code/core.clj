@@ -1,6 +1,8 @@
 (ns advent-of-code.core
   (:gen-class)
-  (:require [advent-of-code.2015.01 :as P01]))
+  (:require [advent-of-code.2015.01 :as P01])
+  (:require [advent-of-code.2015.02 :as P02])
+  )
 
 (defn solve [day problemNum]
   (let [d (read-string day),
@@ -9,6 +11,8 @@
     (case (+ (* 10 d) p)
       11 (P01/solve1)
       12 (P01/solve2)
+      21 (P02/solve1)
+      22 (P02/solve2)
       )
     )
   )
