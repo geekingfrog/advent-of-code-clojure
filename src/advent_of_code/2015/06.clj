@@ -10,7 +10,7 @@
   number = ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9')+
   ")
 
-(def line-parser (insta/parser grammer))
+(def line-parser (insta/parser grammar))
 
 (defn parse-line [l]
   (let [transform-map {:number (fn [& digits] (read-string (apply str digits)))}]
