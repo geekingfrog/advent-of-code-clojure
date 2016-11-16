@@ -10,10 +10,11 @@
   number = ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9')+
   ")
 
+(def line-parser (insta/parser grammer))
+
 (defn parse-line [l]
-  (let [parser (insta/parser grammar)
-        transform-map {:number (fn [& digits] (read-string (apply str digits)))}]
-    (insta/transform transform-map (parser l))
+  (let [transform-map {:number (fn [& digits] (read-string (apply str digits)))}]
+    (insta/transform transform-map (line-parser l))
   ))
 
 (defn inst-fn1 [inst-type grid n]
