@@ -38,36 +38,19 @@
     )
   )
 
-(defn search-digits [prefix]
-  (loop [n 0 found-digits {} pos-to-find 0]
-    (if (> pos-to-find 7)
-      found-digits
-      (if (contains? found-digits pos-to-find)
-        (recur n found-digits (inc pos-to-find))
-        (let [[n' hashed] (search-from prefix n)
-              pos (read-string (str (nth hashed 5)))
-              d (nth hashed 6)]
-          (prn "got hit" pos d (keys found-digits) pos-to-find)
-          (if (contains? found-digits pos)
-            ;; ignore this hash, digit already found
-            (recur (inc n') found-digits pos-to-find)
+(defn find-first [f coll]
+  (first (filter f coll)))
 
-            ;; remember the digit for this position and continue searching
-            (recur (inc n') (assoc found-digits pos d) pos-to-find)
-            )
-          )
-        )
-      )
-    )
-  )
+(defn search-digit [hashes pos]
+  (let [okHash (find-first (fn [h] (= pos (nth h 5))) hashes)]
+    (prn "okHash for pos " pos " - " okHash)
+    (nth okHash 6)))
+
+(defn search-digits [prefix]
+  (let [hashes (map (partial hash-with-prefix prefix) (range))
+        hits (filter (fn [h] (str/starts-with? h "00000")) hashes)]
+    (map #(search-digit hits %1) [\0 \1 \2 \3 \4 \5 \6 \7])))
 
 
 (defn solve2 []
-  (prn
-    (->> (search-digits input)
-         (sort)
-         (map second)
-         (apply str)
-         )
-    )
-  )
+  (prn (apply str (search-digits input))))
