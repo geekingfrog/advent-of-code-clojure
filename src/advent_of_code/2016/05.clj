@@ -24,20 +24,6 @@
   ;;      (prn)
   ;;      ))
 
-(defn digit-in-range? [c]
-  (and (>= (int c) 48) (<= (int c) 55)))
-
-(defn search-from [prefix start]
-  (loop [n start]
-    (let [hashed (hash-with-prefix prefix n)]
-      (if (and (str/starts-with? hashed "00000") (digit-in-range? (nth hashed 5)))
-        (list n hashed)
-        (recur (inc n))
-        )
-      )
-    )
-  )
-
 (defn find-first [f coll]
   (first (filter f coll)))
 
