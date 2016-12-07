@@ -12,6 +12,7 @@
   (:require [advent-of-code.2016.04 :as P16_04])
   (:require [advent-of-code.2016.05 :as P16_05])
   (:require [advent-of-code.2016.06 :as P16_06])
+  (:require [advent-of-code.2016.07 :as P16_07])
   )
 
 (defn solve [year day problemNum]
@@ -45,6 +46,8 @@
         52 (P16_05/solve2)
         61 (P16_06/solve1)
         62 (P16_06/solve2)
+        71 (P16_07/solve1)
+        72 (P16_07/solve2)
         (println "Not done yet"))
       (println (str "Not a valid year " year))
     )
