@@ -73,12 +73,12 @@
   )
 
 
-(defn display-grid [grid]
+(defn render-display [grid]
   (let [symbols (map #(if (= 1 %1) \# \.) grid)
         lines (partition W symbols)
         display (map #(apply str %1) lines)]
-    (doseq display prn)))
+    display))
 
 
 (defn solve2 []
-  (display-grid (compute-grid)))
+  (doseq [l (render-display (compute-grid))] (println l)))
