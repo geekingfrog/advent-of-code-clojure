@@ -1,8 +1,8 @@
 (ns advent-of-code.2016.14
   (:require [digest]))
 
-;; (def input "abc")
-(def input "jlmsuwbz")
+(def input "abc")
+;; (def input "jlmsuwbz")
 
 (defn md5 [s] (digest/md5 (str input s)))
 
@@ -37,7 +37,7 @@
     (filter #(not= nil (second %)))
     (filter #(apply (partial has-next-hash? md5) %))
     (take 64)
-    (last)
+    ;; (last)
     (println)
     )
   )
@@ -52,34 +52,46 @@
   )
 
 (defn prev-hash? [i c]
-  (let [start (max 0 (- (dec i) 1000))
-        idxs (range start (dec i))
+  (let [start (max 0 (- i 1000))
+        idxs (range start i)
         substr (str c c c)
         hashes (map #(vector %1 (stretched-md5 %1)) idxs)
         ok-hashes (filter #(.contains (second %) substr) hashes)
         ]
+    (println i c)
     (when (not-empty ok-hashes) (println (str "got key " (first (first ok-hashes)))))
     (first ok-hashes)
     )
   )
 
-
 (defn solve2 []
-  (->> (range)
-    (map #(vector %1 (has-quint? (stretched-md5 %1))))
+  (->>
+    (range)
+    (map #(vector %1 (has-triplet? (stretched-md5 %))))
     (filter #(not= nil (second %)))
-    (map #(apply prev-hash? %))
-    (filter #(not= nil %))
+    (filter #(apply (partial has-next-hash? stretched-md5) %))
     (take 64)
-    (last)
-    ;; (map #(vector %1 (has-triplet? (stretched-md5 %))))
-    ;; (filter #(not= nil (second %)))
-    ;; (filter #(apply (partial has-next-hash? stretched-md5) %))
-    ;; (take 64)
-    ;; (last)
     (println)
-    )
-  )
+    ))
 
+;; (defn solve2 []
+;;   (->>
+;;     (range)
+;;     (map #(vector %1 (has-quint? (stretched-md5 %1))))
+;;     (filter #(not= nil (second %)))
+;;     ;; (map #(apply prev-hash? %))
+;;     ;; (filter #(not= nil %))
+;;     (take 2)
+;;     ;; (map #(vector %1 (has-triplet? (stretched-md5 %))))
+;;     ;; (filter #(not= nil (second %)))
+;;     ;; (filter #(apply (partial has-next-hash? stretched-md5) %))
+;;     ;; (take 64)
+;;     ;; (last)
+;;     (map #(vector %1 (stretched-md5 (first %1))))
+;;     (println)
+;;     )
+;;   )
+
+;; 10 25
 
 ;; 158236 too high
