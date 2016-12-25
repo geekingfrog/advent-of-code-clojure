@@ -88,6 +88,12 @@
     )
   )
 
+(defn rotate-pos' [s l]
+  (let [possible-reverse (map #(rotate s :right %) (range (count s)))]
+    (first (filter #(= s (rotate-pos % l)) possible-reverse))
+  ))
+
+
 (defn reverse-str [s from to]
   (let [before (if (> from 0) (subvec s 0 from) [])
         after (if (< (inc to) (count s)) (subvec s (inc to)))
@@ -122,15 +128,7 @@
                (throw (Exception. (str "Unkown instruction " i)))
                )
         ]
-    ;; (println s " -> exec " i)
     (apply exec s args))
-  )
-
-
-(defn solve1 []
-  (let [instructions (parse-input "./resources/2016/day21.txt")]
-    (println (apply str (reduce exec-instruction (vec "abcdefgh") instructions)))
-    )
   )
 
 
@@ -142,7 +140,7 @@
       :swap-pos (apply swap-pos s args)
       :swap-letter (apply swap-letter s args)
       :rotate (rotate s (if (= :left (first args)) :right :left) (second args))
-      :rotate-pos (throw (Exception. "not done yet: rotate-pos"))
+      :rotate-pos (rotate-pos' s (first args))
       :reverse (apply reverse-str s args)
       :move-pos (apply move s (reverse args))
       (throw (Exception. (str "Unkown instruction " i)))
@@ -150,4 +148,27 @@
     )
   )
 
-(defn solve2 [] (prn "nope"))
+
+
+(defn scramble [instructions s]
+  (apply str (reduce exec-instruction (vec s) instructions)))
+
+(defn un-scramble [instructions s]
+  (apply str (reduce exec-reverse (vec s) instructions)))
+
+(defn solve1 []
+  (let [instructions (parse-input "./resources/2016/day21.txt")]
+    (println (scramble instructions "abcdefgh"))
+    )
+  )
+
+
+(defn solve2 []
+  (let [instructions (parse-input "./resources/2016/day21.txt")]
+    (->>
+      "fbgdceah"
+      (un-scramble (reverse instructions))
+      (println)
+      )
+    )
+  )
